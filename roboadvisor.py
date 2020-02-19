@@ -65,9 +65,15 @@ with open(csv_filepath, "w") as csv_file:
       "volume": daily_prices["5. volume"],
     })
       
+if float(latest_close) < 0.8*(recent_high):
+  recommendation = "Buy!"
+else:
+  recommendation = "Don't Buy."
 
-
-
+if recommendation == "Buy!":
+  rationale = "Stock is trading below 80 percent of its recent high."
+else:
+  rationale = "Stock is trading near its most recent high. Might be overvalued."
 
 
 
@@ -76,15 +82,15 @@ print("-------------------------")
 print("SELECTED SYMBOL:" + " " + symbol)
 print("-------------------------")
 print("REQUESTING STOCK MARKET DATA...")
-print("REQUEST AT:" + "  " + current_date + " " +  "at" + " " + str(current_time))
+print("REQUEST AT:" + " " + current_date + " " +  "at" + " " + str(current_time))
 #print("-------------------------")
-print("LATEST DAY:" + "  " + str(latest_day)) #has to be a variable
-print("LATEST CLOSE:" + "  " + to_usd(float(latest_close))) #variable
-print("RECENT HIGH:" + "  " + to_usd(float(recent_high))) #variable
-print("RECENT LOW:" + "  " + to_usd(float(recent_low))) #variable
+print("LATEST DAY:" + " " + str(latest_day)) #has to be a variable
+print("LATEST CLOSE:" + " " + to_usd(float(latest_close))) #variable
+print("RECENT HIGH:" + " " + to_usd(float(recent_high))) #variable
+print("RECENT LOW:" + " " + to_usd(float(recent_low))) #variable
 print("-------------------------")
-#print("RECOMMENDATION: BUY!") #if < something, buy, if not , sell
-#print("RECOMMENDATION REASON: TODO")
+print("RECOMMENDATION:" + " " + recommendation) #if < something, buy, if not , sell
+print("RECOMMENDATION REASON:" + " " + rationale)
 print("-------------------------")
 print("HAPPY INVESTING!")
 print("-------------------------")
