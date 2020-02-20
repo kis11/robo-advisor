@@ -19,14 +19,32 @@ apikey = os.getenv("ALPHAVANTAGE_API_KEY")
 def to_usd(my_price):
   return f"${my_price:,.2f}"
 
-symbol = input("Please enter a valid stock or crypto ticker here. Then hit enter.")
+#symbol = input("Please enter a valid stock or crypto ticker here. Then hit enter.")
 
-request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={apikey}"
+e = "Error, try again."
 
-response = requests.get(request_url)
+while True:
+  try:
+    symbol = input("Enter your ticker: ")
+    request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={apikey}"
+    response = requests.get(request_url)
+    if "Error Message" not in response.text:
+      break
+    print("Sorry, we couldn't find that symbol. Please try again with a valid ticker.")
+  except Exception as e:
+    print(e)
 
+#request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={apikey}"
 
+#response = requests.get(request_url)
+
+#if "Error Message" in response.text:
+#  print("Sorry, we couldn't find that symbol. Please try again with a valid ticker.")
+#else:
 parsed_response = json.loads(response.text)
+#    break
+
+
 
 tsd = parsed_response["Time Series (Daily)"]
 dates = list(tsd.keys())
@@ -65,13 +83,13 @@ with open(csv_filepath, "w") as csv_file:
       "volume": daily_prices["5. volume"],
     })
       
-if float(latest_close) < 0.8*(recent_high):
+if float(latest_close) < 0.9*(recent_high):
   recommendation = "Buy!"
 else:
   recommendation = "Don't Buy."
 
 if recommendation == "Buy!":
-  rationale = "Stock is trading below 80 percent of its recent high."
+  rationale = "Stock is trading below 90 percent of its recent high."
 else:
   rationale = "Stock is trading near its most recent high. Might be overvalued."
 
