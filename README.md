@@ -12,10 +12,24 @@
 
 To use our app:
 
-Step One: Recreate the necessary environment with the provided .yml file on the GitHub repository. We call it stocks-env. 
+Step One: Navigate to the robo-advisor folder. If you have a Mac and put it on your Desktop, you can navigate by doing this:
 
 ```sh
-conda env create -n stocks-env -f /path/to/environment.yml
+cd ~/Desktop/robo-advisor
 ```
+
+Once you are navigated to the folder, we need to create an environment. We will call it stocks-env. To create it, install the necessary packages from the requirements.txt file by doing the following:
+
+``sh
+pip install -r requirements.txt
+```
+
+Then, to access the application, type:
+
+```sh
+python roboadvisor.py
+```
+
+
 
 
