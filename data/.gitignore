@@ -2,5 +2,8 @@
 
 # h/t: https://stackoverflow.com/a/5581995/670433
 
+# ignore all files in this directory:
+*
 
-*.csv
+# except this gitignore file:
+!.gitignore
