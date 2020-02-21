@@ -36,7 +36,7 @@ Step 3: Now we need to install the necessary packages from the requirements.txt 
 pip install -r requirements.txt
 ```
 
-Step 4: Get an API Key from AlphaVantage. You can do so here: https://www.alphavantage.co/. Sign up and put your API key somewhere safe offline. Then create a .env file in your roboadvisor folder on your Desktop. In your text editor, navigate to your .env file, and within the file, set the following variable:
+Step 4: Get an API Key from AlphaVantage. You can do so here: https://www.alphavantage.co/. Sign up and put your API key on your clipboard. Then create a .env file in your roboadvisor folder on your Desktop. In your text editor, navigate to your .env file, and within the file, set the following variable:
 
 ```sh
 ALPHAVANTAGE_API_KEY="abc123"
