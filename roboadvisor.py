@@ -19,8 +19,6 @@ apikey = os.getenv("ALPHAVANTAGE_API_KEY")
 def to_usd(my_price):
   return f"${my_price:,.2f}"
 
-#symbol = input("Please enter a valid stock or crypto ticker here. Then hit enter.")
-
 e = "Error, try again."
 
 while True:
@@ -34,15 +32,9 @@ while True:
   except Exception as e:
     print(e)
 
-#request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={apikey}"
 
-#response = requests.get(request_url)
-
-#if "Error Message" in response.text:
-#  print("Sorry, we couldn't find that symbol. Please try again with a valid ticker.")
-#else:
 parsed_response = json.loads(response.text)
-#    break
+
 
 
 
@@ -83,25 +75,22 @@ with open(csv_filepath, "w") as csv_file:
       "volume": daily_prices["5. volume"],
     })
       
-if float(latest_close) < 0.9*(recent_high):
+if float(latest_close) < 0.95*(recent_high):
   recommendation = "Buy!"
 else:
   recommendation = "Don't Buy."
 
 if recommendation == "Buy!":
-  rationale = "Stock is trading below 90 percent of its recent high."
+  rationale = "Stock is trading below 95 percent of its recent high."
 else:
   rationale = "Stock is trading near its most recent high. Might be overvalued."
-
-
-
 
 print("-------------------------")
 print("SELECTED SYMBOL:" + " " + symbol)
 print("-------------------------")
 print("REQUESTING STOCK MARKET DATA...")
 print("REQUEST AT:" + " " + current_date + " " +  "at" + " " + str(current_time))
-#print("-------------------------")
+print("-------------------------")
 print("LATEST DAY:" + " " + str(latest_day)) #has to be a variable
 print("LATEST CLOSE:" + " " + to_usd(float(latest_close))) #variable
 print("RECENT HIGH:" + " " + to_usd(float(recent_high))) #variable
