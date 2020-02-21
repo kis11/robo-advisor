@@ -41,6 +41,7 @@ Step 4: Secure your information, especially your API Key. To use this app, you n
 Step 4: Then, to access the application, type:
 
 ```sh
+~/desktop/robo-advisor/app
 python roboadvisor.py
 ```
 

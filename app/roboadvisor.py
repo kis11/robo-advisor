@@ -58,7 +58,8 @@ for date in dates:
 recent_high = max(high_prices)
 recent_low = min(low_prices)
 
-csv_filepath = os.path.join(os.path.dirname(__file__), "data", "prices.csv")
+#csv_filepath = os.path.abspath(os.path.join(os.path.dirname( __file__ )), '..', 'data')
+csv_filepath = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")
 csv_headers = ["timestamp", "open", "high", "low", "close", "volume"]
 
 with open(csv_filepath, "w") as csv_file:
