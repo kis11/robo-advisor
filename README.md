@@ -32,11 +32,17 @@ conda activate stocks-env
 
 Step 3: Now we need to install the necessary packages from the requirements.txt file by doing the following:
 
-``sh
+```sh
 pip install -r requirements.txt
 ```
 
-Step 4: Secure your information, especially your API Key. To use this app, you need to create a .env file that will store your personal information. 
+Step 4: Get an API Key from AlphaVantage. You can do so here: https://www.alphavantage.co/. Sign up and put your API key somewhere safe offline. Then create a .env file in your roboadvisor folder on your Desktop. In your text editor, navigate to your .env file, and within the file, set the following variable:
+
+```sh
+ALPHAVANTAGE_API_KEY="abc123"
+```
+
+Where abc123 is your provided AlphaVantage key. 
 
 Step 4: Then, to access the application, type:
 
