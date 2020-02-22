@@ -22,11 +22,11 @@ Step One: Navigate to the robo-advisor folder on your terminal. If you have a Ma
 cd ~/Desktop/robo-advisor
 ```
 
-Step 2: Once you are navigated to the folder, we need to create an environment. We will call it stocks-env. To create stocks-env, do the following: 
+Step 2: Once you are navigated to the folder, we need to create an environment. We will call it stock-env. To create stock-env, do the following: 
 
 ```sh
-conda create -n stocks-env python=3.7 #first time only
-conda activate stocks-env
+conda create -n stock-env python=3.7 #first time only
+conda activate stock-env
 ```
 
 
@@ -51,6 +51,6 @@ Step 4: Then, to access the application, type:
 python roboadvisor.py
 ```
 
-You should then get a prompt. 
+You should then get a prompt to enter a ticker. If your ticker is valid, the process will go through and you will be able to get a recommendation. In the event that you type an invalid response (i.e. a ticker that is not on an exchange), the system will prompt you to try again. 
 
 

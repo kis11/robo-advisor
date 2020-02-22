@@ -4,9 +4,13 @@ import requests
 import json
 import csv
 import os
+import plotly
+import plotly.graph_objs as go
 from datetime import datetime
 from datetime import date
 from dotenv import load_dotenv
+import pandas as pd
+
 
 now = datetime.now()
 today = date.today()
@@ -23,7 +27,7 @@ e = "Error, try again."
 
 while True:
   try:
-    symbol = input("Enter your ticker: ")
+    symbol = input("Please enter your ticker: ")
     request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={apikey}"
     response = requests.get(request_url)
     if "Error Message" not in response.text:
@@ -32,11 +36,7 @@ while True:
   except Exception as e:
     print(e)
 
-
 parsed_response = json.loads(response.text)
-
-
-
 
 tsd = parsed_response["Time Series (Daily)"]
 dates = list(tsd.keys())
@@ -58,7 +58,6 @@ for date in dates:
 recent_high = max(high_prices)
 recent_low = min(low_prices)
 
-#csv_filepath = os.path.abspath(os.path.join(os.path.dirname( __file__ )), '..', 'data')
 csv_filepath = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")
 csv_headers = ["timestamp", "open", "high", "low", "close", "volume"]
 
@@ -102,3 +101,11 @@ print("RECOMMENDATION REASON:" + " " + rationale)
 print("-------------------------")
 print("HAPPY INVESTING!")
 print("-------------------------")
+
+
+df = pd.read_csv(csv_filepath)
+
+plotly.offline.plot({
+    "data": [go.Scatter(x=df['timestamp'], y=df['high'])],
+    "layout": go.Layout(title="Recent stock price fluctuation for" + " " + symbol)
+}, auto_open=True)
