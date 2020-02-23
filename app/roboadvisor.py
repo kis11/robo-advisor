@@ -38,8 +38,14 @@ while True:
   except Exception as e:
     print(e)
 
+request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={apikey}"
+weekly_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={symbol}&apikey={apikey}"
+
 parsed_response = json.loads(response.text)
 parsed_weekly = json.loads(weeklyresponse.text)
+response = requests.get(request_url)
+weeklyresponse = requests.get(weekly_url)
+
 
 tsd = parsed_response["Time Series (Daily)"]
 tsw = parsed_weekly["Weekly Time Series"]
@@ -77,7 +83,7 @@ yearly_low = min(weekly_low_prices)
 
 csv_filepath = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")
 csv_headers = ["timestamp", "open", "high", "low", "close", "volume"]
-df = pd.read_csv(csv_filepath)
+
 
 with open(csv_filepath, "w") as csv_file:
   writer = csv.DictWriter(csv_file, fieldnames=csv_headers)
@@ -93,6 +99,8 @@ with open(csv_filepath, "w") as csv_file:
       "volume": daily_prices["5. volume"],
     })
       
+df = pd.read_csv(csv_filepath)
+
 if float(latest_close) < 0.95*(yearly_high):
   recommendation = "Buy!"
 else:
