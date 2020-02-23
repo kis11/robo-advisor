@@ -6,9 +6,9 @@
 
  ### Our methodology
  
- Buy if the stock is trading below 95 percent of its most 52 week high. In other words, Buy if Last Closing Price < (0.95 * 52 Week High Price)
+ Buy if the stock is trading below 95 percent of its most 52 week high. In other words, Buy if Last Closing Price < (0.95 * 52 Week High Price).
  
- Do not buy if the stock is trading above 95 percent of its most 52 week high. This might indicate that the stock is overvalued or priced correctly, leaving no room for additional upside. In other words, Do Not Buy if Last Closing Price > (0.95 * 52 Week High Price)
+ Do not buy if the stock is trading above 95 percent of its most 52 week high. This might indicate that the stock is overvalued or priced correctly, leaving no room for additional upside. In other words, Do Not Buy if Last Closing Price > (0.95 * 52 Week High Price).
 
 #### To use our app...
 
