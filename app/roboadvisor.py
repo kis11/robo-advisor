@@ -18,7 +18,7 @@ current_time = now.strftime("%H:%M:%S")
 current_date = today.strftime("%Y-%m-%d")
 
 load_dotenv()
-apikey = os.getenv("ALPHAVANTAGE_API_KEY")
+apikey = os.getenv("ALPHAVANTAGE_API_KEY", default = "OOPS")
 
 def to_usd(my_price):
   return f"${my_price:,.2f}"
