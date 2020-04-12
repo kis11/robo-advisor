@@ -134,3 +134,5 @@ plotly.offline.plot({
     "data": [go.Scatter(x=df['timestamp'], y=df['high'])],
     "layout": go.Layout(title="Recent stock price fluctuation for" + " " + symbol)
 }, auto_open=True)
+
+
