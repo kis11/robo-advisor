@@ -7,3 +7,6 @@
 
 # except this gitignore file:
 !.gitignore
+
+__pycache__
+.pytest_cache
