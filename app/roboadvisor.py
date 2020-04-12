@@ -24,7 +24,7 @@ def to_usd(my_price):
   return f"${my_price:,.2f}"
 
 e = "Error, try again."
-
+white = "adfskjals;dfjal;sdjfl;asdjflk;aj"
 while True:
   try:
     symbol = input("Please enter your ticker: ")
