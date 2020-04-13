@@ -81,9 +81,6 @@ def get_response(symbol):
     except Exception as e:
       print(e)
   return parsed_response
-  
-    
-
 
 if __name__=="__main__":
   now = datetime.now()
@@ -93,19 +90,6 @@ if __name__=="__main__":
 
   apikey = os.getenv("ALPHAVANTAGE_API_KEY", default = "OOPS")
 
-#  e = "Error, try again."
-#  while True:
-#    try:
-#      symbol = input("Please enter your ticker: ")
-#      request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={apikey}"
-#      weekly_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={symbol}&apikey={apikey}"
-#      response = requests.get(request_url)
-#      weeklyresponse = requests.get(weekly_url)
-#      if "Error Message" not in response.text:
-#        break
-#      print("Sorry, we couldn't find that symbol. Please try again with a valid ticker.")
-#    except Exception as e:
-#      print(e)
   e = "Error, try again."
   symbol = input("Please enter your ticker: ")
   get_response(symbol)
