@@ -12,9 +12,24 @@ from dotenv import load_dotenv
 import pandas as pd
 
 def to_usd(my_price):
-  return f"${my_price:,.2f}"
+  """
+    Changes numbers into USD dollar format.
 
+    Params:
+      my_price (numeric), the number you want to be turned into dollar formatting
+
+    Example:
+      to_usd(3) 
+      to_usd(4.49)
+  """
+  return f"${my_price:,.2f}"
 def write_to_csv():
+  """
+    Writes stock information to CSV.
+
+    Params:
+        none
+  """
   global csv_filepath,csv_headers,df
   csv_filepath = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")
   csv_headers = ["timestamp", "open", "high", "low", "close", "volume"]
@@ -32,9 +47,7 @@ def write_to_csv():
         "volume": daily_prices["5. volume"],
       })
   df = pd.read_csv(csv_filepath)
-  return df
-    
-
+  return df  
 def check_if_buy(latest_close,yearly_high):
   if float(latest_close) < 0.95*(yearly_high):
     recommendation = "Buy!"
@@ -42,6 +55,26 @@ def check_if_buy(latest_close,yearly_high):
   else:
     recommendation = "Don't Buy."
     return recommendation
+def get_response(symbol):
+  global apikey,request_url,weekly_url,response,weeklyresponse,parsed_response,parsed_weekly
+  e = "Error, try again."
+  apikey = os.getenv("ALPHAVANTAGE_API_KEY", default = "OOPS")
+  while True:
+    try:
+      request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={apikey}"
+      weekly_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={symbol}&apikey={apikey}"
+      response = requests.get(request_url)
+      weeklyresponse = requests.get(weekly_url)
+      parsed_response = json.loads(response.text)
+      parsed_weekly = json.loads(weeklyresponse.text)
+      if "Error Message" not in response.text:
+        break
+      print("Sorry, we couldn't find that symbol. Please try again with a valid ticker.")
+    except Exception as e:
+      print(e)
+  return parsed_response
+  
+    
 
 
 if __name__=="__main__":
@@ -52,24 +85,22 @@ if __name__=="__main__":
 
   apikey = os.getenv("ALPHAVANTAGE_API_KEY", default = "OOPS")
 
+#  e = "Error, try again."
+#  while True:
+#    try:
+#      symbol = input("Please enter your ticker: ")
+#      request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={apikey}"
+#      weekly_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={symbol}&apikey={apikey}"
+#      response = requests.get(request_url)
+#      weeklyresponse = requests.get(weekly_url)
+#      if "Error Message" not in response.text:
+#        break
+#      print("Sorry, we couldn't find that symbol. Please try again with a valid ticker.")
+#    except Exception as e:
+#      print(e)
   e = "Error, try again."
-  while True:
-    try:
-      symbol = input("Please enter your ticker: ")
-      request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={apikey}"
-      weekly_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol={symbol}&apikey={apikey}"
-      response = requests.get(request_url)
-      weeklyresponse = requests.get(weekly_url)
-      if "Error Message" not in response.text:
-        break
-      print("Sorry, we couldn't find that symbol. Please try again with a valid ticker.")
-    except Exception as e:
-      print(e)
-
-
-  parsed_response = json.loads(response.text)
-  parsed_weekly = json.loads(weeklyresponse.text)
-
+  symbol = input("Please enter your ticker: ")
+  get_response(symbol)
 
   tsd = parsed_response["Time Series (Daily)"]
   tsw = parsed_weekly["Weekly Time Series"]
