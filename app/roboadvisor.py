@@ -56,6 +56,14 @@ def check_if_buy(latest_close,yearly_high):
     recommendation = "Don't Buy."
     return recommendation
 def get_response(symbol):
+  """
+    Gets stock information from API and turns into digestible data for the system.
+
+    Params:
+      symbol (your stock ticker)
+    Example:
+      get_response(GS) # gets you Goldman Sachs' stock data.
+  """
   global apikey,request_url,weekly_url,response,weeklyresponse,parsed_response,parsed_weekly
   e = "Error, try again."
   apikey = os.getenv("ALPHAVANTAGE_API_KEY", default = "OOPS")
